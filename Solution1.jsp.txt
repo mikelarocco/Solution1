@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  font-size:10px;
+}
+
+td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+</style>
+</head>
+<body>
+
+<script>
+//display configuration dialog for given table
+function configure(tableName) {
+   var unhideDiv = document.getElementById(tableName + "TableInputs");
+   unhideDiv.style.display = 'block';
+   document.getElementById(tableName + "nInput").value = '';
+   document.getElementById(tableName + "xInput").value = '';
+   document.getElementById(tableName + "mInput").value = '';
+   document.getElementById(tableName + "wInput").value = '';
+}
+
+function isOdd(num) { return num % 2;}
+
+//user has clicked on OK for given table entries
+function processTableInputs(tableName) {
+
+  var invalidEntry = false;
+  var nFactor = document.getElementById(tableName + "nInput");
+  if ( !isNumber(nFactor.value) ) {
+    nFactor.value = nFactor.value + ' is invalid';
+    invalidEntry = true;
+  }
+  var xFactor = document.getElementById(tableName + "xInput");
+  if ( !isNumber(xFactor.value) ) {
+    xFactor.value = xFactor.value + ' is invalid';
+    invalidEntry = true;
+  } else if ( parseInt(xFactor.value) == 0 ) {
+    xFactor.value = xFactor.value + ' is invalid';
+    invalidEntry = true;  
+  }
+  var mFactor = document.getElementById(tableName + "mInput");
+  if ( !isNumber(mFactor.value) ) {
+    mFactor.value = mFactor.value + ' is invalid';
+    invalidEntry = true;
+  } 
+  var wFactor = document.getElementById(tableName + "wInput"); 
+  if ( !isNumber(wFactor.value) ) {
+    wFactor.value = wFactor.value + ' is invalid';
+    invalidEntry = true;
+  }
+  
+  //need to check increment vs start/max
+  var m = parseInt(mFactor.value) + 1;
+  var n = parseInt(nFactor.value);
+  var x = parseInt(xFactor.value);  
+  var w = parseInt(wFactor.value);
+  
+  if ( ( m < n ) && ( x > 0 ) ) {
+    xFactor.value = xFactor.value + ' is invalid';
+    invalidEntry = true;  
+  }
+    
+  if ( ( m > n ) && ( x < 0 ) ) {
+    xFactor.value = xFactor.value + ' is invalid';
+    invalidEntry = true;  
+  }
+  
+  // keep it from getting too small
+  if ( ( w < 20 ) || ( w > 40)) {
+    wFactor.value = wFactor.value + ' is invalid';
+    invalidEntry = true;  
+  }
+  
+  //skip table generaqtion if inputs do not make sense
+  if ( !invalidEntry ) {
+      var direction = document.getElementById(tableName + "Direction").value; 
+      //set % span text
+      document.getElementById(tableName + "Percent").textContent = w + "%";
+      
+      document.getElementById(tableName + 'TableContainer').
+            setAttribute("style","width:" + w + "%");
+      
+      //lets see how many cells we have (cleanup?)
+      var maxValue = n;
+      var counter = 1;
+      while ( ( maxValue + x ) < m ) {
+         maxValue += x;
+         counter++;
+      }
+     
+      var numEntities = counter;
+      var numRows = Math.ceil(numEntities/5);
+      var totalCells = numRows * 5;
+      var newTableContents = "";
+      
+      var i = totalCells;
+      
+      var displayData = m -1;
+      var curRow = numRows;
+      while (i > 0 ) { 
+          newTableContents += "<tr>";
+          //get 1 rows worth of data
+          var tdValues = [];
+          for (var j = 1; j <= 5; j++) {
+             var dataIndex = i - j;
+             var cellValue = '';
+             var bgcolor = 'bgcolor="grey"';
+             if ( dataIndex < numEntities ) {
+               var cellValue = maxValue;
+               maxValue -= x;
+               bgcolor = '';
+             }
+             var tdValue = '<td ' + bgcolor + '>' + cellValue + '</td>';
+             tdValues.push(tdValue);
+          }
+          
+          // order values in table
+          var startIndex = 0;
+          var endIndex = 4;
+          var increment = 1;
+          //switch display direction
+          if ( ( direction == 'LTR' ) && isOdd(curRow)) {
+             startIndex = 4;
+             endIndex = 0;
+             increment = -1;
+          } else if ( ( direction == 'RTL' ) && !isOdd(curRow)) {
+             startIndex = 4;
+             endIndex = 0;
+             increment = -1;
+          } 
+          curRow--;
+          
+          while ( startIndex != endIndex ) {
+               newTableContents += tdValues[startIndex];
+               startIndex += increment;
+          }
+          newTableContents += tdValues[startIndex];
+          
+          newTableContents += "</tr>";
+          i -= 5;
+      }   
+      
+      var newTable = '<tr>' + newTableContents + '</tr>';
+      var tableBody = document.getElementById(tableName + "Body");
+      tableBody.innerHTML = newTable;
+
+     hideTableInputs(tableName);
+  }
+}
+
+//hide the entry form
+function hideTableInputs(tableName) {
+  var unhideDiv = document.getElementById(tableName + "TableInputs");
+  unhideDiv.style.display = 'none';
+}
+
+//verify string is integer
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+//if not enough room hide blue
+function checkBlueFits() {
+
+}
+</script>
+
+<div id='solutionContainer'>
+
+<div id='redTableContainer' style='float:left;width:20%'>
+<div id='redTableDiv'>
+<table>
+  <tbody id='redBody'>
+    <tr>
+      <td bgcolor='grey'></td>
+      <td bgcolor='grey'></td>
+      <td bgcolor='grey'></td>
+      <td bgcolor='grey'></td>
+      <td bgcolor='grey'></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<button onclick="configure('red')">Configure</button> 
+<span id='redPercent' style='float:right'>20%</span>
+</div>
+<br>
+<div id='redTableInputs' style='display:none' >
+<p>Table:<span style='color:green'>RED</span></p>
+<br>
+  <label for="rednInput">N = </label>
+  <input type="text" id="rednInput" name="rednInput" style="width:50%">
+ <br><br>
+  <label for="redxInput">X = </label>
+  <input type="text" id="redxInput" name="redxInput" style="width:50%">
+ <br><br>
+   <label for="redxInput">M = </label>
+  <input type="text" id="redmInput" name="redmInput" style="width:50%">
+ <br><br> 
+   <label for="wInput">W = </label>
+  <input type="text" id="redwInput" name="redwInput" style="width:50%">%
+ <br><br>
+ <label for="redDirection">D = </label>
+
+ <select id="redDirection">
+  <option value="LTR">LTR</option>
+  <option value="RTL">RTL</option>
+ </select> 
+ <br><br>
+<button onclick="processTableInputs('red')">OK</button> 
+<button onclick="hideTableInputs('red')">Cancel</button>
+</div>
+</div>
+<div id='greenTableContainer' style='float:left;padding-left:30px;width:30%'>
+<div id='greenTableDiv'>
+<table>
+  <tbody id='greenBody'>
+  <tr>
+    <td bgcolor='grey'></td>
+    <td bgcolor='grey'></td>
+    <td bgcolor='grey'></td>
+    <td bgcolor='grey'></td>
+    <td bgcolor='grey'></td>
+  </tr>
+  </tbody>
+</table>
+<br>
+<button onclick="configure('green')">Configure</button> 
+<span id='greenPercent' style='float:right'>30%</span>
+</div>
+<br>
+<div id='greenTableInputs' style='display:none'>
+<p>Table:<span style='color:green'>GREEN</span></p>
+<br>
+  <label for="greennInput">N = </label>
+  <input type="text" id="greennInput" name="greennInput" style="width:50%">
+ <br><br>
+  <label for="greenxInput">X = </label>
+  <input type="text" id="greenxInput" name="greenxInput" style="width:50%">
+ <br><br>
+   <label for="greenxInput">M = </label>
+  <input type="text" id="greenmInput" name="greenmInput" style="width:50%">
+ <br><br> 
+   <label for="greenwInput">W = </label>
+  <input type="text" id="greenwInput" name="greenwInput" style="width:50%">%
+ <br><br> 
+ <label for="greenDirection">D = </label>
+
+ <select id="greenDirection">
+  <option value="LTR">LTR</option>
+  <option value="RTL">RTL</option>
+ </select>
+ <br><br>
+<button onclick="processTableInputs('green')">OK</button> 
+<button onclick="hideTableInputs('green')">Cancel</button>
+</div>
+</div>
+
+<div id='blueTableContainer' style='float:left;padding-left:30px;width:30%'>
+<div id='blueTableDiv'>
+<table>
+  <tbody id='blueBody'>
+  <tr>
+    <td bgcolor='grey'></td>
+    <td bgcolor='grey'></td>
+    <td bgcolor='grey'></td>
+    <td bgcolor='grey'></td>
+    <td bgcolor='grey'></td>
+  </tr>
+  </tbody>
+</table>
+<br>
+<button onclick="configure('blue')">Configure</button> 
+<span id='bluePercent' style='float:right'>30%</span>
+</div>
+<br>
+<div id='blueTableInputs' style='display:none'>
+<p>Table:<span style='color:blue'>BLUE</span></p>
+<br>
+  <label for="bluenInput">N = </label>
+  <input type="text" id="bluenInput" name="bluenInput" style="width:50%">
+ <br><br>
+  <label for="bluexInput">X = </label>
+  <input type="text" id="bluexInput" name="bluexInput" style="width:50%">
+ <br><br>
+   <label for="bluemInput">M = </label>
+  <input type="text" id="bluemInput" name="bluemInput" style="width:50%">
+ <br><br> 
+   <label for="bluewInput">W = </label>
+  <input type="text" id="bluewInput" name="bluewInput" style="width:50%">%
+ <br><br> 
+ <label for="blueDirection">D = </label>
+
+ <select id="blueDirection">
+  <option value="LTR">LTR</option>
+  <option value="RTL">RTL</option>
+ </select>
+ <br><br>
+<button onclick="processTableInputs('blue')">OK</button> 
+<button onclick="hideTableInputs('blue')">Cancel</button>
+</div>
+
+</div>
+</body>
+</html>
+
+
+
+
