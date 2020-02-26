@@ -1,22 +1,9 @@
 <!DOCTYPE html>
-<script src="solution1.js"></script>
+
 <html>
 <head>
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  font-size:10px;
-}
-
-td {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-</style>
+<link rel="stylesheet" type="text/css" href="solution1.css">
+<script src="solution1.js"></script>
 </head>
 <body>
 <!-- stacked DIV per table (RGB) -->
