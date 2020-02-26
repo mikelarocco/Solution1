@@ -5,7 +5,8 @@ function configure(tableName) {
    document.getElementById(tableName + "nInput").value = '';
    document.getElementById(tableName + "xInput").value = '';
    document.getElementById(tableName + "mInput").value = '';
-   document.getElementById(tableName + "wInput").value = '';
+   document.getElementById(tableName + "wInput").value =       
+         parseInt(document.getElementById(tableName + 'TableContainer').style.width);  //keep it the same for convenience
 }
 
 function isOdd(num) { return num % 2;}
@@ -63,11 +64,14 @@ function processTableInputs(tableName) {
   //skip table generaqtion if inputs do not make sense
   if ( !invalidEntry ) {
       var direction = document.getElementById(tableName + "Direction").value; 
-      //set % span text
-      document.getElementById(tableName + "Percent").textContent = w + "%";
+      //Make sure width changed before doing anything
+      var curWidth = parseInt(document.getElementById(tableName + 'TableContainer').style.width);
+      if ( curWidth != w ) {
+        document.getElementById(tableName + "Percent").textContent = w + "x%";
       
-      document.getElementById(tableName + 'TableContainer').
+        document.getElementById(tableName + 'TableContainer').
             setAttribute("style","width:" + w + "%");
+      }
       
       //lets see how many cells we have (cleanup?)
       var maxValue = n;
@@ -83,7 +87,7 @@ function processTableInputs(tableName) {
       var newTableContents = "";
       
       var i = totalCells;
-      
+     // loop thru all cells.  Blank cells are greyed with no data displayed
       var displayData = m -1;
       var curRow = numRows;
       while (i > 0 ) { 
@@ -108,17 +112,17 @@ function processTableInputs(tableName) {
           var endIndex = 4;
           var increment = 1;
           //switch display direction
-          if ( ( direction == 'LTR' ) && isOdd(curRow)) {
+          if ( ( direction == 'LTR-UP' ) && isOdd(curRow)) {
              startIndex = 4;
              endIndex = 0;
              increment = -1;
-          } else if ( ( direction == 'RTL' ) && !isOdd(curRow)) {
+          } else if ( ( direction == 'RTL-UP' ) && !isOdd(curRow)) {
              startIndex = 4;
              endIndex = 0;
              increment = -1;
           } 
           curRow--;
-          
+          //build out the <tr> contents (in order)
           while ( startIndex != endIndex ) {
                newTableContents += tdValues[startIndex];
                startIndex += increment;
@@ -129,7 +133,7 @@ function processTableInputs(tableName) {
           i -= 5;
       }   
       
-      var newTable = '<tr>' + newTableContents + '</tr>';
+      var newTable = newTableContents;
       var tableBody = document.getElementById(tableName + "Body");
       tableBody.innerHTML = newTable;
 
