@@ -35,22 +35,22 @@
 <p>Table:<span style='color:green'>RED</span></p>
 <br>
   <label for="rednInput">N = </label>
-  <input type="text" id="rednInput" name="rednInput" style="width:50%">
+  <input type="text" id="rednInput" name="rednInput">
  <br><br>
   <label for="redxInput">X = </label>
-  <input type="text" id="redxInput" name="redxInput" style="width:50%">
+  <input type="text" id="redxInput" name="redxInput">
  <br><br>
    <label for="redxInput">M = </label>
-  <input type="text" id="redmInput" name="redmInput" style="width:50%">
+  <input type="text" id="redmInput" name="redmInput">
  <br><br> 
    <label for="wInput">W = </label>
-  <input type="text" id="redwInput" name="redwInput" style="width:50%">%
+  <input type="text" id="redwInput" name="redwInput">%
  <br><br>
  <label for="redDirection">D = </label>
 
  <select id="redDirection">
-  <option value="LTR">LTR</option>
-  <option value="RTL">RTL</option>
+  <option value="LTR-UP">LTR-UP</option>
+  <option value="RTL-UP">RTL-UP</option>
  </select> 
  <br><br>
 <button onclick="processTableInputs('red')">OK</button> 
@@ -83,22 +83,22 @@
 <p>Table:<span style='color:green'>GREEN</span></p>
 <br>
   <label for="greennInput">N = </label>
-  <input type="text" id="greennInput" name="greennInput" style="width:50%">
+  <input type="text" id="greennInput" name="greennInput">
  <br><br>
   <label for="greenxInput">X = </label>
-  <input type="text" id="greenxInput" name="greenxInput" style="width:50%">
+  <input type="text" id="greenxInput" name="greenxInput">
  <br><br>
    <label for="greenxInput">M = </label>
-  <input type="text" id="greenmInput" name="greenmInput" style="width:50%">
+  <input type="text" id="greenmInput" name="greenmInput">
  <br><br> 
    <label for="greenwInput">W = </label>
-  <input type="text" id="greenwInput" name="greenwInput" style="width:50%">%
+  <input type="text" id="greenwInput" name="greenwInput">%
  <br><br> 
  <label for="greenDirection">D = </label>
 
  <select id="greenDirection">
-  <option value="LTR">LTR</option>
-  <option value="RTL">RTL</option>
+  <option value="LTR-UP">LTR-UP</option>
+  <option value="RTL-UP">RTL-UP</option>
  </select>
  <br><br>
 <button onclick="processTableInputs('green')">OK</button> 
@@ -131,22 +131,22 @@
 <p>Table:<span style='color:blue'>BLUE</span></p>
 <br>
   <label for="bluenInput">N = </label>
-  <input type="text" id="bluenInput" name="bluenInput" style="width:50%">
+  <input type="text" id="bluenInput" name="bluenInput">
  <br><br>
   <label for="bluexInput">X = </label>
-  <input type="text" id="bluexInput" name="bluexInput" style="width:50%">
+  <input type="text" id="bluexInput" name="bluexInput">
  <br><br>
    <label for="bluemInput">M = </label>
-  <input type="text" id="bluemInput" name="bluemInput" style="width:50%">
+  <input type="text" id="bluemInput" name="bluemInput">
  <br><br> 
    <label for="bluewInput">W = </label>
-  <input type="text" id="bluewInput" name="bluewInput" style="width:50%">%
+  <input type="text" id="bluewInput" name="bluewInput">%
  <br><br> 
  <label for="blueDirection">D = </label>
 
  <select id="blueDirection">
-  <option value="LTR">LTR</option>
-  <option value="RTL">RTL</option>
+  <option value="LTR-UP">LTR-UP</option>
+  <option value="RTL-UP">RTL-UP</option>
  </select>
  <br><br>
 <button onclick="processTableInputs('blue')">OK</button> 
