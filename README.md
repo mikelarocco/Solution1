@@ -1,4 +1,13 @@
 # Solution1
-getting acquainted with GITHUB
+Exercise 1:
+Accessed at https://mikelarocco.github.io/Solution1/
 
-Solution1.jsp.txt can be copied and pasted into w3schools HTML editor and RUN from there(i.e. https://www.w3schools.com/html/tryit.asp?filename=tryhtml_table_intro)  That environment does not support the seperation of user generated jsp, js, css files.  Those files have been seperated out in the source code repository as an exercise
+Source code in: index.html (also can be seen at 
+
+Cookies: loads the table config dialog (x,m,n values) from COOKIEs if available
+
+Exercise 2: source cod availabe in solution.java
+
+Exercise 3: SQL syntax available in
+
+Note: column names do not exactly match requirements.  Left as is instead of dropping and recreating tables
