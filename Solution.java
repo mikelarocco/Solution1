@@ -1,12 +1,14 @@
 import java.util.ArrayList;
+import java.io.FileWriter;  
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 class Solution {
     static int UPPERRANGE = 11;
-    static int INSERT_MOD = 10;
+    static int INSERT_MOD = 400;
     
     static int MAX_EXTRAS = 1000 + 500 + 250 + 100 + 50 + 25 + 10 + 5;
-    static int MAX_VALUES = 997940; //100; 
+    static int MAX_VALUES = 997940; //Max size for ALL ints 
     Random numGenerator = new Random();
     
     // Public method to do Solution 2
@@ -36,7 +38,8 @@ class Solution {
                 }
               }
           }
-        }        
+        }   
+        writeResultsToFile(randomInts);
         return;
     }
     //generate a random number within given range (0+1 - n+1)
@@ -84,4 +87,33 @@ class Solution {
   
         return extras;
     }
+    
+    // write generated data (Integer array) to text file
+    private boolean writeResultsToFile(List<Integer>randomInts) {
+      boolean writeCompleted = false;
+      FileWriter myWriter = null;
+      try {
+        myWriter = new FileWriter("randomNumbers.txt");
+        if ( myWriter != null ) {
+          for ( Integer value: randomInts ) {
+            myWriter.write(value + "\n");              
+          }
+        } 
+        myWriter.flush();  // flush anything in stream to output
+       } catch (IOException e) {
+         System.out.println("Error writing to file: " + e.getMessage());
+         e.printStackTrace();
+       }   finally {
+          try {
+            if ( myWriter != null ) {
+                myWriter.close();       //close the file
+                writeCompleted = true;
+            }
+          }  catch (IOException e) {
+            System.out.println("Error closing file: " + e.getMessage());
+            e.printStackTrace();
+          }
+       }
+       return writeCompleted;
+    }    
 }
