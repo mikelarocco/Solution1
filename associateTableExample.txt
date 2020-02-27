@@ -34,3 +34,25 @@ INSERT INTO PEOPLE_VEHICLE (VehicleID, PersonID) values (1,2)
 INSERT INTO PEOPLE_VEHICLE (VehicleID, PersonID) values (2,2)
 INSERT INTO PEOPLE_VEHICLE (VehicleID, PersonID) values (3,2)
 INSERT INTO PEOPLE_VEHICLE (VehicleID, PersonID) values (4,2)
+
+CREATE TABLE Pets
+(
+PetID int,
+Type varchar(255),
+Name varchar(255)
+);
+
+CREATE TABLE people_pet
+(
+PetID int,
+PersonID int
+);
+
+
+INSERT INTO PETS (PetID, Name) values (1,'Dog')
+INSERT INTO PETS (PetID, Name) values (2,'Cat')
+INSERT INTO PETS (PetID, Name) values (3,'Parrot')
+
+INSERT INTO people_pet (PetID, PersonID) values (1,2)
+INSERT INTO people_pet (PetID, PersonID) values (2,3)
+INSERT INTO people_pet (PetID, PersonID) values (3,3)
