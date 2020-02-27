@@ -7,7 +7,6 @@ function displayResize() {
      document.getElementById("blueTableContainer").style.display = 'block';  
    }
 }
-
 //display configuration dialog for given table
 function configure(tableName) {
    var unhideDiv = document.getElementById(tableName + "TableInputs");
@@ -15,8 +14,8 @@ function configure(tableName) {
    document.getElementById(tableName + "nInput").value = '';
    document.getElementById(tableName + "xInput").value = '';
    document.getElementById(tableName + "mInput").value = '';
-   document.getElementById(tableName + "wInput").value =       
-         parseInt(document.getElementById(tableName + 'TableContainer').style.width);  //keep it the same for convenience
+   document.getElementById(tableName + "wInput").value =       parseInt(document.getElementById(tableName + 'TableContainer').style.width);
+   checkCookies(tableName);  //load config dialog with any saved data
 }
 
 function isOdd(num) { return num % 2;}
@@ -55,14 +54,25 @@ function processTableInputs(tableName) {
   var x = parseInt(xFactor.value);  
   var w = parseInt(wFactor.value);
   
+  // make sure increment works here
   if ( ( m < n ) && ( x > 0 ) ) {
     xFactor.value = xFactor.value + ' is invalid';
     invalidEntry = true;  
   }
-    
-  if ( ( m > n ) && ( x < 0 ) ) {
+  //leave it to positive #'s for the time being
+  if ( x <= 0 ) {
     xFactor.value = xFactor.value + ' is invalid';
-    invalidEntry = true;  
+    invalidEntry = true;    
+  }
+  
+  if ( n <= 0 ) {
+    nFactor.value = nFactor.value + ' is invalid';
+    invalidEntry = true;    
+  }
+  
+  if ( m <= 0 ) {
+    mFactor.value = mFactor.value + ' is invalid';
+    invalidEntry = true;    
   }
   
   // keep it from getting too small
@@ -71,18 +81,17 @@ function processTableInputs(tableName) {
     invalidEntry = true;  
   }
   
-  //skip table generaqtion if inputs do not make sense
+  //skip table generation if inputs do not make sense
   if ( !invalidEntry ) {
       var direction = document.getElementById(tableName + "Direction").value; 
       //Make sure width changed before doing anything
       var curWidth = parseInt(document.getElementById(tableName + 'TableContainer').style.width);
       if ( curWidth != w ) {
-        document.getElementById(tableName + "Percent").textContent = w + "x%";
+        document.getElementById(tableName + "Percent").textContent = w + "%";
       
         document.getElementById(tableName + 'TableContainer').
             setAttribute("style","width:" + w + "%");
       }
-      
       //lets see how many cells we have (cleanup?)
       var maxValue = n;
       var counter = 1;
@@ -97,7 +106,7 @@ function processTableInputs(tableName) {
       var newTableContents = "";
       
       var i = totalCells;
-     // loop thru all cells.  Blank cells are greyed with no data displayed
+      
       var displayData = m -1;
       var curRow = numRows;
       while (i > 0 ) { 
@@ -132,7 +141,7 @@ function processTableInputs(tableName) {
              increment = -1;
           } 
           curRow--;
-          //build out the <tr> contents (in order)
+          
           while ( startIndex != endIndex ) {
                newTableContents += tdValues[startIndex];
                startIndex += increment;
@@ -143,10 +152,12 @@ function processTableInputs(tableName) {
           i -= 5;
       }   
       
-      var newTable = newTableContents;
+      var newTable = newTableContents;      
       var tableBody = document.getElementById(tableName + "Body");
       tableBody.innerHTML = newTable;
-
+     // store table config in cookies 
+     saveTableForLater(tableName,m,n,x)
+     //hide user inpus
      hideTableInputs(tableName);
   }
 }
@@ -162,7 +173,41 @@ function isNumber(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-//if not enough room hide blue
-function checkBlueFits() {
+//store table config value in cookies (note width
+//and direction not stored)
+function saveTableForLater(tableName,m,n,x) { 
+  var d = new Date();
+  var numDays = 3;
+  d.setTime(d.getTime() + (numDays*24*60*60*1000));
+  var expires = "expires="+ d.toUTCString();
+  document.cookie = tableName + "X=" + x + ";" + expires + ";";
+  document.cookie = tableName + "M=" + m + ";" + expires + ";";
+  document.cookie = tableName + "N=" + n + ";" + expires + ";";
+}
+// any cookies out there from before?
+function checkCookies(tableName) {
+   //checkTable
+   var cookieVal = getCookie(tableName + 'X');
+   if ( cookieVal.length > 0 ) {
+     document.getElementById(tableName + "xInput").value = cookieVal;
+     document.getElementById(tableName + "nInput").value = getCookie(tableName + 'N');
+     document.getElementById(tableName + "mInput").value = getCookie(tableName + 'M')
+   }
+}
 
+//get table COOKIE by name
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
 }
