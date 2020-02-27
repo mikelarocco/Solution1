@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="solution1.css">
 <script src="solution1.js"></script>
 </head>
-<body>
+<body  onresize="displayResize()>
 <!-- stacked DIV per table (RGB) -->
 <!-- each DIV contains a DIV for the table stacked vertically over a DIV for data entry --?
 <!-- table DIVS are stacked horizontally -->
