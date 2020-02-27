@@ -21,9 +21,18 @@ input {
 
 </style>
 </head>
-<body>
+<body onresize="displayResize()">
 
 <script>
+//handle resize (hide blue table at 400px)
+function displayResize() {
+   var curWidth = parseInt(document.getElementById("solutionContainer").offsetWidth);
+   if ( curWidth < 400 ) {
+     document.getElementById("blueTableContainer").style.display = 'none';
+   } else {
+     document.getElementById("blueTableContainer").style.display = 'block';  
+   }
+}
 //display configuration dialog for given table
 function configure(tableName) {
    var unhideDiv = document.getElementById(tableName + "TableInputs");
@@ -92,7 +101,7 @@ function processTableInputs(tableName) {
       //Make sure width changed before doing anything
       var curWidth = parseInt(document.getElementById(tableName + 'TableContainer').style.width);
       if ( curWidth != w ) {
-        document.getElementById(tableName + "Percent").textContent = w + "x%";
+        document.getElementById(tableName + "Percent").textContent = w + "%";
       
         document.getElementById(tableName + 'TableContainer').
             setAttribute("style","width:" + w + "%");
