@@ -5,13 +5,11 @@
 <link rel="stylesheet" type="text/css" href="solution1.css">
 <script src="solution1.js"></script>
 </head>
-<body  onresize="displayResize()>
-<!-- stacked DIV per table (RGB) -->
-<!-- each DIV contains a DIV for the table stacked vertically over a DIV for data entry --?
-<!-- table DIVS are stacked horizontally -->
+<body onresize="displayResize()">
+
 <div id='solutionContainer'>
-<!-- Red Table defined -->
-<div id='redTableContainer' style='float:left;width:20%'>
+
+<div id='redTableContainer' style='float:left;width:30%'>
 <div id='redTableDiv'>
 <table>
   <tbody id='redBody'>
@@ -25,12 +23,10 @@
   </tbody>
 </table>
 <br>
-<!-- Display Red table input/config fields -->
 <button onclick="configure('red')">Configure</button> 
-<span id='redPercent' style='float:right'>20%</span>
+<span id='redPercent' style='float:right'>30%</span>
 </div>
 <br>
-<!-- Red Table inputs defined -->
 <div id='redTableInputs' style='display:none' >
 <p>Table:<span style='color:green'>RED</span></p>
 <br>
@@ -57,8 +53,6 @@
 <button onclick="hideTableInputs('red')">Cancel</button>
 </div>
 </div>
-
-<!-- Green Table defined -->
 <div id='greenTableContainer' style='float:left;padding-left:30px;width:30%'>
 <div id='greenTableDiv'>
 <table>
@@ -73,12 +67,10 @@
   </tbody>
 </table>
 <br>
-<!-- Display Green table input/config fields -->
 <button onclick="configure('green')">Configure</button> 
 <span id='greenPercent' style='float:right'>30%</span>
 </div>
 <br>
-<!-- Green Table inputs defined -->
 <div id='greenTableInputs' style='display:none'>
 <p>Table:<span style='color:green'>GREEN</span></p>
 <br>
@@ -106,8 +98,7 @@
 </div>
 </div>
 
-<!-- Blue Table defined -->
-<div id='blueTableContainer' style='float:left;padding-left:30px;width:30%'>
+<div id='blueTableContainer' style='float:left;padding-left:30px;width:25%'>
 <div id='blueTableDiv'>
 <table>
   <tbody id='blueBody'>
@@ -121,12 +112,10 @@
   </tbody>
 </table>
 <br>
-<!-- Display Blue table input/config fields -->
 <button onclick="configure('blue')">Configure</button> 
-<span id='bluePercent' style='float:right'>30%</span>
+<span id='bluePercent' style='float:right'>25%</span>
 </div>
 <br>
-<!-- Blue Table inputs defined -->
 <div id='blueTableInputs' style='display:none'>
 <p>Table:<span style='color:blue'>BLUE</span></p>
 <br>
@@ -156,3 +145,4 @@
 </div>
 </body>
 </html>
+  
