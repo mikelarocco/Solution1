@@ -1,0 +1,36 @@
+CREATE TABLE Persons
+(
+PersonID int,
+LastName varchar(255),
+FirstName varchar(255),
+Address varchar(255),
+City varchar(255)
+}
+
+CREATE TABLE Vehicles
+(
+VehicleID int,
+Model varchar(255),
+Make varchar(255)
+);
+
+CREATE TABLE people_vehicle
+(
+VehicleID int,
+PersonID int
+);
+
+INSERT INTO PERSONS (PersonID, FirstName) values (1,'Mary')
+INSERT INTO PERSONS (PersonID, FirstName) values (2,'John')
+INSERT INTO PERSONS (PersonID, FirstName) values (3,'Chen')
+
+INSERT INTO VEHICLES (VehicleID, Make, Model) values (1,'Ford','F150')
+INSERT INTO VEHICLES (VehicleID, Make, Model) values (2,'Toyata','Tundra')
+INSERT INTO VEHICLES (VehicleID, Make, Model) values (3,'Toyata','Prius')
+INSERT INTO VEHICLES (VehicleID, Make, Model) values (4,'Honda','Accord')
+
+INSERT INTO PEOPLE_VEHICLE (VehicleID, PersonID) values (1,1)
+INSERT INTO PEOPLE_VEHICLE (VehicleID, PersonID) values (1,2)
+INSERT INTO PEOPLE_VEHICLE (VehicleID, PersonID) values (2,2)
+INSERT INTO PEOPLE_VEHICLE (VehicleID, PersonID) values (3,2)
+INSERT INTO PEOPLE_VEHICLE (VehicleID, PersonID) values (4,2)
