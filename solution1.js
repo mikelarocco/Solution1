@@ -1,3 +1,13 @@
+//handle resize (hide blue table at 400px)
+function displayResize() {
+   var curWidth = parseInt(document.getElementById("solutionContainer").offsetWidth);
+   if ( curWidth < 400 ) {
+     document.getElementById("blueTableContainer").style.display = 'none';
+   } else {
+     document.getElementById("blueTableContainer").style.display = 'block';  
+   }
+}
+
 //display configuration dialog for given table
 function configure(tableName) {
    var unhideDiv = document.getElementById(tableName + "TableInputs");
