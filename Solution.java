@@ -4,11 +4,20 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 class Solution {
-    static int UPPERRANGE = 11;
-    static int INSERT_MOD = 400;
+    static final int UPPERRANGE = 11;
+    static final int INSERT_MOD = 400;
     
-    static int MAX_EXTRAS = 1000 + 500 + 250 + 100 + 50 + 25 + 10 + 5;
-    static int MAX_VALUES = 997940; //Max size for ALL ints 
+    static final int NUM_13 = 1000;
+    static final int NUM_14 = 500;
+    static final int NUM_15 = 250;
+    static final int NUM_16 = 100;
+    static final int NUM_17 = 50;
+    static final int NUM_18 = 25;
+    static final int NUM_19 = 10;
+    static final int NUM_20 = 5;
+    
+    static final int MAX_EXTRAS = NUM_13 + NUM_14 + NUM_15 + NUM_16 + NUM_17 + NUM_18 + NUM_19 + NUM_20;
+    static final int MAX_VALUES = 997940; //Max size for ALL ints 
     Random numGenerator = new Random();
     
     // Public method to do Solution 2
@@ -17,7 +26,7 @@ class Solution {
         List<Integer>randomInts = new ArrayList<Integer>();
         int prevValue = 0;
         int extraIndex = 0;
-        int[]extraValues = createUnortedArray();    // generate list withthe 'special extra' values
+        int[]extraValues = createUnsortedArray();    // generate list withthe 'special extra' values
         // Generate random numver list
         for ( int i = 0; i < MAX_VALUES; i++ ) {
           //make sure no repeat  
@@ -33,6 +42,7 @@ class Solution {
                 curInt = extraValues[extraIndex++];
                 randomInts.add(new Integer(curInt));
                 prevValue = curInt;
+                i++;
                 if ( curInt == 20 ) {
                    System.out.println("Random(20): " + extraIndex );  // only 5 of these
                 }
@@ -48,31 +58,54 @@ class Solution {
     }
     
     //put the 'extra' values in an unsorted array to use later
-    private int[] createUnortedArray() {
+    private int[] createUnsortedArray() {
         int[] extras = new int[MAX_EXTRAS];
 
-        for ( int i = 0; i < 1000; i++ ) {
+        int lowerBound = 0;
+        int upperBound = NUM_13;
+        for ( int i = lowerBound; i < upperBound; i++ ) {
             extras[i] = 13;
         }
-        for ( int i = 1000; i < 1500; i++ ) {
+     
+        lowerBound = upperBound;
+        upperBound += NUM_14;
+        for ( int i = lowerBound; i < upperBound; i++ ) {
             extras[i] = 14;
         } 
-        for ( int i = 1500; i < 1750; i++ ) {
+        
+        lowerBound = upperBound;
+        upperBound += NUM_15;
+        for ( int i = lowerBound; i < upperBound; i++ ) {
             extras[i] = 15;
         } 
-        for ( int i = 1750; i < 1800; i++ ) {
+        
+        lowerBound = upperBound;
+        upperBound += NUM_16;
+        for ( int i = lowerBound; i < upperBound; i++ ) {
             extras[i] = 16;
         }
-        for ( int i = 1800; i < 1850; i++ ) {
+        
+        lowerBound = upperBound;
+        upperBound += NUM_17;
+        for ( int i = lowerBound; i < upperBound; i++ ) {
             extras[i] = 17;
         } 
-        for ( int i = 1850; i < 1875; i++ ) {
+        
+        lowerBound = upperBound;
+        upperBound += NUM_18;
+        for ( int i = lowerBound; i < upperBound; i++ ) {
             extras[i] = 18;
         } 
-        for ( int i = 1875; i < 1895; i++ ) {
+        
+        lowerBound = upperBound;
+        upperBound += NUM_19;
+        for ( int i = lowerBound; i < upperBound; i++ ) {
             extras[i] = 19;
         }
-        for ( int i = 1895; i < 1900; i++ ) {
+        
+        lowerBound = upperBound;
+        upperBound += NUM_20;
+        for ( int i = lowerBound; i < upperBound; i++ ) {
             extras[i] = 20;
         } 
         
