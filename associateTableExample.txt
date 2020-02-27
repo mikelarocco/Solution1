@@ -56,3 +56,21 @@ INSERT INTO PETS (PetID, Name) values (3,'Parrot')
 INSERT INTO people_pet (PetID, PersonID) values (1,2)
 INSERT INTO people_pet (PetID, PersonID) values (2,3)
 INSERT INTO people_pet (PetID, PersonID) values (3,3)
+
+
+ALTER TABLE vehicles
+ADD type char(255);
+
+update vehicles 
+set type = 'Car'
+where vehicleid in ( 3, 4)
+
+
+update vehicles 
+set type = 'Truck'
+where vehicleid in ( 1,2)
+
+select p.firstname from persons p, pets pets, people_pet pp where ( p.personid = pp.personid and pp.petid = pets.petid) group by p.firstname having count(pp.personid) > 1
+UNION
+select p.firstname from persons p, vehicles v, people_vehicle pv where ( p.personid = pv.personid and pv.vehicleid = v.vehicleid) group by p.firstname having count(pv.vehicleid) > 1
+
